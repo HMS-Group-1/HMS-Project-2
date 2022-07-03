@@ -1,0 +1,7 @@
+const models = require('./models')
+const tbl_anggota = require('./models/tbl_anggota')
+const tbl_buku = require('./models/tbl_buku')
+const tbl_kategori = require('./models/tbl_kategori')
+const tbl_peminjaman = require('./models/tbl_peminjaman')
+const tbl_pengembalian = require('./models/tbl_pengembalian')
+const tbl_rak = require('./models/tbl_pengembalian')
