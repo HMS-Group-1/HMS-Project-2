@@ -1,0 +1,22 @@
+const models = require('../models');
+const tbl_kategori = models.tbl_kategori;
+
+exports.getAllKategori = async (req, res) => {
+	try {
+		const response = await tbl_kategori.findAll();
+		res.status(200).json(response);
+	} catch (err) {
+		res.status(500).send({
+			msg: err.message,
+		});
+	}
+};
+
+exports.postKategori = async (req, res) => {
+	try {
+		await tbl_kategori.create(req.body);
+		res.status(200).send({ msg: 'post berhasil' });
+	} catch (error) {
+		res.status(500).send({ msg: error.message });
+	}
+};

@@ -10,6 +10,7 @@ module.exports = {
 			},
 			tgl_pengembalian: {
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.fn('now'),
 			},
 			staff_id: {
 				type: Sequelize.INTEGER,

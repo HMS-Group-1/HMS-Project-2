@@ -4,22 +4,28 @@ module.exports = {
 	async up(queryInterface, Sequelize) {
 		return queryInterface.bulkInsert('tbl_anggota', [
 			{
-				name: 'John',
+				nama: 'John',
 				email: 'john@john.com',
 				password: 'johny',
 				no_telp: '000111222',
+				createdAt: new Date(),
+				updatedAt: new Date(),
 			},
 			{
-				name: 'Dea',
+				nama: 'Dea',
 				email: 'Deee@a.com',
 				password: 'Deltaa',
-				no_telp: '9183271290',
+				no_telp: '918327129',
+				createdAt: new Date(),
+				updatedAt: new Date(),
 			},
 			{
-				name: 'Tony',
+				nama: 'Tony',
 				email: 'Tony@star.com',
 				password: 'touuny',
-				no_telp: '91875313508',
+				no_telp: '918753135',
+				createdAt: new Date(),
+				updatedAt: new Date(),
 			},
 		]);
 	},
