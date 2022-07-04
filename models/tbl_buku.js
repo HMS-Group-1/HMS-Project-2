@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 			stok: DataTypes.INTEGER,
 			rak_id: DataTypes.INTEGER,
 			stok: DataTypes.INTEGER,
-			rak_id: DataTypes.INTEGER,
 		},
 		{}
 	);

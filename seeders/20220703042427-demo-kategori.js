@@ -22,6 +22,6 @@ module.exports = {
 	},
 
 	async down(queryInterface, Sequelize) {
-		return queryInterface.bulkDelete('tbl_kategori', null, {});
+		return queryInterface.bulkDelete('tbl_kategoris', null, {});
 	},
 };

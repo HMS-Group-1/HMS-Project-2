@@ -23,7 +23,7 @@ module.exports = {
 				type: Sequelize.STRING,
 			},
 			gambar: {
-				type: Sequelize.BLOB,
+				type: Sequelize.BLOB('medium'),
 			},
 			stok: {
 				type: Sequelize.INTEGER,
