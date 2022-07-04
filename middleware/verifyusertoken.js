@@ -8,7 +8,6 @@ exports.verifyUserToken = async (req, res, next) => {
 		if (err) return res.sendStatus(403);
 		req.email = decoded.email;
 		req.role = decoded.role;
-		console.log('decoded adalah ' + JSON.stringify(decoded));
 		next();
 	});
 };
