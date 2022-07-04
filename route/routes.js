@@ -13,11 +13,11 @@ router.post('/login', Login);
 router.delete('/logout', Logout);
 
 // router book
-router.get('/book', getBooks);
+router.get('/book', verifyUserToken, getBooks);
 
 // rotuer admin
 router.get('/admin/user', verifyUserToken, verifyRoles, getAllUsers);
-router.get('/admin/book', verifyUserToken, getBooks);
+router.get('/admin/book', verifyUserToken, verifyRoles, getBooks);
 router.post('/admin/createbook', verifyUserToken, verifyRoles, createBooks);
 
 module.exports = router;
