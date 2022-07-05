@@ -11,7 +11,7 @@ exports.getBooks = async (req, res) => {
 	}
 };
 
-// untuk update data buku
+// untuk create data buku
 exports.createBooks = async (req, res) => {
 	try {
 		await tbl_buku.create(req.body, {
