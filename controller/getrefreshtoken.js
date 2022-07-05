@@ -10,7 +10,7 @@ exports.refreshToken = async (req, res) => {
 		if (!refreshToken) return res.sendStatus(403);
 		const user = await tbl_anggota.findAll({
 			where: {
-				refreshToken: refreshToken,
+				refresh_token: refreshToken,
 			},
 		});
 		if (!user[0]) return res.sendStatus(403);
