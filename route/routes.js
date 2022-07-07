@@ -17,7 +17,7 @@ router.delete('/logout', Logout);
 
 // router book
 router.get('/book', verifyUserToken, getBooks);
-router.get('/book', verifyUserToken, getBookById);
+router.get('/book/:id', verifyUserToken, getBookById);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyRoles, getAllUsers);
