@@ -11,6 +11,20 @@ exports.getBooks = async (req, res) => {
 	}
 };
 
+// untuk ambil data buku satu per satu
+exports.getBookById = async (req, res) => {
+	try {
+		const bookById = await tbl_buku.findOne({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.status(200).json(bookById);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 // untuk create data buku
 exports.createBooks = async (req, res) => {
 	try {
