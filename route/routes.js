@@ -3,14 +3,15 @@ const { getAllUsers, updateUsers, deleteUsers } = require('../controller/admin')
 const { getBooks, createBooks, updateBooks, deleteBooks, getBookById } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { Register, Login, Logout } = require('../controller/useraccesscontrol');
+const { loginValidation, registerValidation } = require('../middleware/validator');
 const { verifyRoles } = require('../middleware/verifyuserrole');
 const { verifyUserToken } = require('../middleware/verifyusertoken');
 
 const router = express.Router();
 
 // router user
-router.post('/register', Register);
-router.post('/login', Login);
+router.post('/register', registerValidation, Register);
+router.post('/login', loginValidation, Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
 

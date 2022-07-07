@@ -2,9 +2,14 @@ const models = require('../models');
 const tbl_anggota = models.tbl_anggota;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 
 // Registrasi USER
 exports.Register = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	const { nama, email, password, no_telp, role } = req.body;
 	console.log('role adalah ' + req.body.role);
 	const salt = await bcrypt.genSalt(10);
@@ -25,6 +30,10 @@ exports.Register = async (req, res) => {
 
 // Login USER
 exports.Login = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	try {
 		const user = await tbl_anggota.findAll({
 			where: {
