@@ -41,7 +41,11 @@ exports.Login = async (req, res) => {
 			},
 		});
 		const match = await bcrypt.compare(req.body.password, user[0].password);
+<<<<<<< HEAD
 		if (!match) return res.status(400).json({ message: 'Email atau password salah!' });
+=======
+		if (!match) return res.status(400).json({ message: 'Email atau password salah' });
+>>>>>>> danielsharon
 		const userId = user[0].id;
 		const nama = user[0].nama;
 		const email = user[0].email;
@@ -64,7 +68,11 @@ exports.Login = async (req, res) => {
 		res.send({ accessToken });
 		res.end();
 	} catch (error) {
+<<<<<<< HEAD
 		res.status(404).json({ message: 'Email atau password salah!' });
+=======
+		res.status(404).json({ message: 'Email atau password salah' });
+>>>>>>> danielsharon
 	}
 };
 
