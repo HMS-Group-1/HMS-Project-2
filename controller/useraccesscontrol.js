@@ -24,7 +24,7 @@ exports.Register = async (req, res) => {
 		});
 		res.json({ message: 'Registrasi Berhasil' });
 	} catch (error) {
-		console.log(error.message);
+		res.status(400).json({ message: 'Registrasi Gagal!' });
 	}
 };
 
