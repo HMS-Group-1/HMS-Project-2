@@ -11,6 +11,12 @@ exports.Register = async (req, res) => {
 		return res.status(400).json(errors);
 	}
 	const { nama, email, password, no_telp, role } = req.body;
+	const user = await tbl_anggota.findOne({
+		where: {
+			email: req.body.email,
+		},
+	});
+	if (user) return res.status(400).json({ message: 'Email telah terdaftar' });
 	const salt = await bcrypt.genSalt(10);
 	const hashPassword = await bcrypt.hash(password, salt);
 	try {
