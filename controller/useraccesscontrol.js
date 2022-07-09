@@ -11,7 +11,6 @@ exports.Register = async (req, res) => {
 		return res.status(400).json(errors);
 	}
 	const { nama, email, password, no_telp, role } = req.body;
-	console.log('role adalah ' + req.body.role);
 	const salt = await bcrypt.genSalt(10);
 	const hashPassword = await bcrypt.hash(password, salt);
 	try {
