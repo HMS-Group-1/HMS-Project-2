@@ -16,7 +16,7 @@ exports.Register = async (req, res) => {
 			email: req.body.email,
 		},
 	});
-	if (user) return res.status(400).json({ message: 'Email telah terdaftar' });
+	if (user) return res.status(422).json({ message: 'Email telah terdaftar' });
 	const salt = await bcrypt.genSalt(10);
 	const hashPassword = await bcrypt.hash(password, salt);
 	try {
