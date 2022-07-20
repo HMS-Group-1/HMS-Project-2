@@ -6,7 +6,7 @@ exports.registerValidation = [
 	check('nama', 'Nama tidak boleh kosong').not().isEmpty(),
 	check('nama', 'Nama tidak boleh angka').not().isNumeric(),
 	check('email', 'Masukkan email yang sesuai').not().isEmpty().isEmail().normalizeEmail({ gmail_remove_dots: true }),
-	check('password', 'Password minimum 4 karakter').not().isEmpty().isLength({ min: 4 }).isNumeric(),
+	check('password', 'Password minimum 4 karakter').not().isEmpty().isLength({ min: 4 }),
 	check('no_telp', 'Wajib 10 angka').not().isEmpty().isLength({ min: 10, max: 10 }),
 	check('no_telp', 'Nomor wajib angka').isNumeric(),
 ];
