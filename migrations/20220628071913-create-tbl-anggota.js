@@ -10,18 +10,23 @@ module.exports = {
 			},
 			nama: {
 				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			email: {
 				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			password: {
 				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			no_telp: {
 				type: Sequelize.INTEGER,
+				allowNull: false,
 			},
 			role: {
 				type: Sequelize.ENUM('admin', 'anggota'),
+				allowNull: false,
 			},
 			refresh_token: {
 				type: Sequelize.TEXT,
