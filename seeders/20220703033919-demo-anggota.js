@@ -1,32 +1,50 @@
 'use strict';
 
+const randomNumbers = Math.floor(Math.random() * 1000000000);
+
+const randomNames = (length) => {
+	let result = '';
+	const characters = 'abcdefghijklmnopqrstuvwxyz';
+	const charactersLength = characters.length;
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+};
+
+const randomRoles = () => {
+	const roles = ['admin', 'anggota'];
+	const randomRoles = roles[Math.floor(Math.random() * roles.length)];
+	return randomRoles;
+};
+
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		return queryInterface.bulkInsert('tbl_anggota', [
 			{
-				nama: 'John',
+				nama: randomNames(10),
 				email: 'john@john.com',
-				password: 'johny',
-				no_telp: '000111222',
+				password: passwordHasher('johnny'),
+				no_telp: randomNumbers,
 				role: 'admin',
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				nama: 'Dea',
+				nama: randomNames(10),
 				email: 'Deee@a.com',
 				password: 'Deltaa',
-				no_telp: '918327129',
-				role: 'anggota',
+				no_telp: randomNumbers,
+				role: randomRoles(),
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},
 			{
-				nama: 'Tony',
+				nama: randomNames(10),
 				email: 'Tony@star.com',
 				password: 'touuny',
-				no_telp: '918753135',
-				role: 'anggota',
+				no_telp: randomNumbers,
+				role: randomRoles(),
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			},

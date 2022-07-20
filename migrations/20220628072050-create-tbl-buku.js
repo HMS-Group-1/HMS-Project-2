@@ -10,6 +10,7 @@ module.exports = {
 			},
 			judul_buku: {
 				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			kategori_id: {
 				type: Sequelize.INTEGER,
@@ -21,12 +22,15 @@ module.exports = {
 			},
 			deskripsi: {
 				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			gambar: {
 				type: Sequelize.BLOB('medium'),
+				allowNull: false,
 			},
 			stok: {
 				type: Sequelize.INTEGER,
+				allowNull: false,
 			},
 			rak_id: {
 				type: Sequelize.INTEGER,
@@ -38,6 +42,11 @@ module.exports = {
 			},
 			stok: {
 				type: Sequelize.INTEGER,
+				allowNull: false,
+			},
+			tahun_terbit: {
+				type: Sequelize.INTEGER,
+				allowNull: false,
 			},
 			createdAt: {
 				allowNull: false,

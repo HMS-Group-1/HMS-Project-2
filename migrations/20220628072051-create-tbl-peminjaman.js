@@ -10,6 +10,7 @@ module.exports = {
 			},
 			tgl_peminjaman: {
 				type: Sequelize.DATE,
+				allowNull: false,
 				defaultValue: Sequelize.fn('now'),
 			},
 			staff_id: {

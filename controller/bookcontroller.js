@@ -1,10 +1,21 @@
 const models = require('../models');
 const tbl_buku = models.tbl_buku;
+const tbl_kategori = models.tbl_kategori;
 
 // untuk ambil data buku
 exports.getBooks = async (req, res) => {
 	try {
 		const books = await tbl_buku.findAll();
+		res.status(200).json(books);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// ambil data buku dengan kategori
+exports.booksWithCategory = async (req, res) => {
+	try {
+		const books = await tbl_buku.findAll({ include: [{ model: tbl_kategori, as: 'Kategori_id', required: true }] });
 		res.status(200).json(books);
 	} catch (error) {
 		console.log(error);
