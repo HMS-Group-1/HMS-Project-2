@@ -21,7 +21,7 @@ module.exports = {
 				type: Sequelize.INTEGER,
 			},
 			role: {
-				type: Sequelize.STRING,
+				type: Sequelize.ENUM('admin', 'anggota'),
 			},
 			refresh_token: {
 				type: Sequelize.TEXT,

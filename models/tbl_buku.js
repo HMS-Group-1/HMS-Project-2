@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			stok: DataTypes.INTEGER,
 			rak_id: DataTypes.INTEGER,
 			stok: DataTypes.INTEGER,
+			tahun_terbit: DataTypes.INTEGER,
 		},
 		{}
 	);
