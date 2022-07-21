@@ -25,7 +25,7 @@ const tahunTerbit = () => {
 
 // perlu diubah sesuai dengan jumlah tbl_rak
 const rak_idGenerator = () => {
-	return randomNumbers(27);
+	return randomNumbersMinMax(1, 27);
 };
 
 const stockGenerator = () => {
@@ -37,42 +37,34 @@ const categoryGenerator = () => {
 	return randomNumbersMinMax(1, 31);
 };
 
+const bookGenerator = (judul_buku, deskripsi, path) => {
+	let obj = {
+		judul_buku: judul_buku,
+		kategori_id: categoryGenerator(),
+		deskripsi: deskripsi,
+		gambar: fs.readFileSync(path),
+		stok: stockGenerator(),
+		rak_id: rak_idGenerator(),
+		tahun_terbit: tahunTerbit(),
+		createdAt: new Date(),
+		updatedAt: new Date(),
+	};
+	return obj;
+};
+
 module.exports = {
 	async up(queryInterface, Sequelize) {
 		return queryInterface.bulkInsert('tbl_bukus', [
-			{
-				judul_buku: 'History of Worldwide Pandemic',
-				kategori_id: categoryGenerator(),
-				deskripsi: 'The things people have no idea about, and the things that force people to adapt strangely with situation',
-				gambar: fs.readFileSync('./public/images/contoh-cover-buku-ajar.jpg'),
-				stok: stockGenerator(),
-				rak_id: rak_idGenerator(),
-				tahun_terbit: tahunTerbit(),
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
-			{
-				judul_buku: 'Paths to become entrepreneurs',
-				kategori_id: categoryGenerator(),
-				deskripsi: 'People know less about money, yet they interact daily with it, think of it, and make fun of it',
-				gambar: fs.readFileSync('./public/images/buku-2.jpg'),
-				stok: stockGenerator(),
-				rak_id: rak_idGenerator(),
-				tahun_terbit: tahunTerbit(),
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
-			{
-				judul_buku: 'Bugs in Software Lifecycles',
-				kategori_id: categoryGenerator(),
-				deskripsi: 'Engineers worldwide endlessly fight to kill bugs yet they can not figure out the main issues',
-				gambar: fs.readFileSync('./public/images/buku-3.jpg'),
-				stok: stockGenerator(),
-				rak_id: rak_idGenerator(),
-				tahun_terbit: tahunTerbit(),
-				createdAt: new Date(),
-				updatedAt: new Date(),
-			},
+			bookGenerator('History of Worldwide Pandemic', 'The things people have no idea about, and the things that force people to adapt strangely witht the situation', './public/images/contoh-cover-buku-ajar.jpg'),
+			bookGenerator('Paths to become entrepreneurs', 'People know less about money, yet they interact daily with it, think of it, and make fun of it', './public/images/buku-2.jpg'),
+			bookGenerator('Bugs in Software Lifecycles', 'Engineers worldwide endlessly fight to kill bugs yet they can not figure out the main issues', './public/images/buku-3.jpg'),
+			bookGenerator(
+				'Kebudayaan Indonesia Dimata Orang Korea',
+				`Buku Kebudayaan Indonesia di Mata Orang Korea ini berkisah tentang kehidupan sehari-hari masyarakat di Indonesia yang dilihat dan direfleksikan melalui kacamata orang Korea. Esai-esai yang ditulis di dalamnya mencakup rentang topik yang begitu kaya, mulai dari makanan sehari-hari, agama yang dianut, pendidikan, kehidupan sosial, dan sebagainya yang mencerminkan budaya Indonesia. Sang penulis, Prof. Yang Seung Yoon, mengisahkan setiap cerita dengan cara yang sederhana dan lugas, namun memiliki makna yang luas dan mendalam. Buku ini sendiri ditulis berdasarkan basis pengalaman konkret, sehingga apa yang disampaikannya bersifat kontekstual dan faktual. Kehadiran nyata Prof. Yang dalam kehidupan sehari-hari masyarakat Indonesia dan interaksi dengan mereka menjadi landasan refleksi eksistensialis yang tidak dapat dipungkiri. 
+				Semoga dengan kehadiran buku ini ke tengah khazcinah literasi Indonesia, dapat terjalinlah suatu hubungan mesra di dalam kemitraan Indonesia dengan Korea. Selain itu, harapannya, banyak orang dari luar Indonesia yang semakin tertarik pula untuk belajar dan mengerti tentang budaya Indonesia yang begitu kaya dengan ragam makna.
+							`,
+				'./public/images/Kebudayaan-Indonesia-Dimata-Orang-Korea'
+			),
 		]);
 	},
 

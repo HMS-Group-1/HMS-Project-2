@@ -21,7 +21,7 @@ module.exports = {
 				},
 			},
 			deskripsi: {
-				type: Sequelize.STRING,
+				type: Sequelize.TEXT,
 				allowNull: false,
 			},
 			gambar: {
