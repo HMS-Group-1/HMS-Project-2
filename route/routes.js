@@ -2,6 +2,7 @@ const express = require('express');
 const { getAllUsers, updateUsers, deleteUsers } = require('../controller/admin');
 const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
+const { getAllKategori } = require('../controller/kategori');
 const { Register, Login, Logout } = require('../controller/useraccesscontrol');
 const { loginValidation, registerValidation, bookValidation, userUpdateValidationAdmin } = require('../middleware/validator');
 const { verifyAdmin, verifyUser } = require('../middleware/verifyuserrole');
@@ -18,6 +19,9 @@ router.delete('/logout', Logout);
 // router book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
+
+//route kategori
+router.get('kategori', getAllKategori);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyAdmin, getAllUsers);
