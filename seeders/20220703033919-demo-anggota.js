@@ -8,7 +8,7 @@ const randomNumbers = (max) => {
 
 const randomNumbersMinMax = (min = 8, max = 15) => {
 	const difference = max - min;
-	let result = Math.floor(Math.random() * difference);
+	let result = randomNumbers(difference);
 	result = result + min;
 	return result;
 };
