@@ -13,6 +13,7 @@ exports.getBooks = async (req, res) => {
 	}
 };
 
+// untuk ambil data paginasi daftar buku
 exports.getBooksPaginated = async (req, res) => {
 	const pageAt = parseInt(req.query.page) || 0;
 	const limitPage = parseInt(req.query.limit) || 12;
