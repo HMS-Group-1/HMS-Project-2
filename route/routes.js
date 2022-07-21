@@ -22,7 +22,7 @@ router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
 
 //route kategori
 router.get('kategori', getAllKategori);
-router.get('book/category', booksWithCategory);
+router.get('book/kategori', booksWithCategory);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyAdmin, getAllUsers);
@@ -35,5 +35,8 @@ router.get('/admin/book/:id', verifyUserToken, verifyAdmin, getBookById);
 router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookValidation, createBooks);
 router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookValidation, updateBooks);
 router.delete('/admin/deleteBook/:id', verifyUserToken, verifyAdmin, deleteBooks);
+
+// router admin--category
+router.get('/admin/kategori', verifyUserToken, verifyUser, getAllKategori);
 
 module.exports = router;
