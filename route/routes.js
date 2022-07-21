@@ -21,8 +21,8 @@ router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
 
 //route kategori
-router.get('kategori', getAllKategori);
-router.get('book/kategori', booksWithCategory);
+router.get('/kategori', getAllKategori);
+router.get('/kategori/book', booksWithCategory);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyAdmin, getAllUsers);
