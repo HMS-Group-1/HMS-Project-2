@@ -25,7 +25,7 @@ const tahunTerbit = () => {
 
 // perlu diubah sesuai dengan jumlah tbl_rak
 const rak_idGenerator = () => {
-	return randomNumbers(27);
+	return randomNumbersMinMax(1, 27);
 };
 
 const stockGenerator = () => {
