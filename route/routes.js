@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllUsers, updateUsers, deleteUsers } = require('../controller/admin');
-const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated } = require('../controller/bookcontroller');
+const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, booksWithCategory } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
 const { Register, Login, Logout } = require('../controller/useraccesscontrol');
@@ -22,6 +22,7 @@ router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
 
 //route kategori
 router.get('kategori', getAllKategori);
+router.get('book/category', booksWithCategory);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyAdmin, getAllUsers);
