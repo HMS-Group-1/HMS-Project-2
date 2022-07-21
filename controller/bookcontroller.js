@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const models = require('../models');
 const tbl_buku = models.tbl_buku;
 const tbl_kategori = models.tbl_kategori;
@@ -10,6 +11,58 @@ exports.getBooks = async (req, res) => {
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+exports.getBooksPaginated = async (req, res) => {
+	const pageAt = parseInt(req.query.page) || 0;
+	const limitPage = parseInt(req.query.limit) || 12;
+	const searchQuery = req.query.search_query || '';
+	const offset = limitPage * pageAt;
+
+	const jumlahBaris = await tbl_buku.count({
+		where: {
+			[Op.or]: [
+				{
+					judul_buku: {
+						[Op.like]: '%' + searchQuery + '%',
+					},
+				},
+				{
+					deskripsi: {
+						[Op.like]: '%' + searchQuery + '%',
+					},
+				},
+			],
+		},
+	});
+
+	const jumlahHalaman = Math.ceil(jumlahBaris / limitPage);
+	const hasil = await tbl_buku.findAll({
+		where: {
+			[Op.or]: [
+				{
+					judul_buku: {
+						[Op.like]: '%' + searchQuery + '%',
+					},
+				},
+				{
+					deskripsi: {
+						[Op.like]: '%' + searchQuery + '%',
+					},
+				},
+			],
+		},
+		offset: offset,
+		limit: limitPage,
+		order: [['createdAt', 'DESC']],
+	});
+
+	res.json({
+		hasilBuku: hasil,
+		halamanKe: pageAt,
+		jumlahBaris: jumlahBaris,
+		jumlahHalaman: jumlahHalaman,
+	});
 };
 
 // ambil data buku dengan kategori
