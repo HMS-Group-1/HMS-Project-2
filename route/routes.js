@@ -16,11 +16,11 @@ router.post('/login', loginValidation, Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
 
-// router book
+// router user--book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
 
-//route kategori
+//route kategori -- admin && user
 router.get('/kategori', getAllKategori);
 router.get('/kategori/book', categoryWithBooks);
 
@@ -35,9 +35,5 @@ router.get('/admin/book/:id', verifyUserToken, verifyAdmin, getBookById);
 router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookValidation, createBooks);
 router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookValidation, updateBooks);
 router.delete('/admin/deleteBook/:id', verifyUserToken, verifyAdmin, deleteBooks);
-
-// router admin--category
-router.get('/admin/kategori', verifyUserToken, verifyUser, getAllKategori);
-router.get('/admin/kategori/book', verifyUserToken, verifyAdmin, categoryWithBooks);
 
 module.exports = router;
