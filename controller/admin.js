@@ -13,6 +13,10 @@ exports.getAllUsers = async (req, res) => {
 
 // UPDATE USERS
 exports.updateUsers = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	try {
 		await tbl_anggota.update(req.body, {
 			where: {

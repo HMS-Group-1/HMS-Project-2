@@ -38,6 +38,10 @@ exports.getBookById = async (req, res) => {
 
 // untuk create data buku
 exports.createBooks = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	try {
 		await tbl_buku.create(req.body);
 		res.status(201).json({ message: 'Book created' });
@@ -49,6 +53,10 @@ exports.createBooks = async (req, res) => {
 // untuk update data buku
 
 exports.updateBooks = async (req, res) => {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	try {
 		await tbl_buku.update(req.body, {
 			where: {
