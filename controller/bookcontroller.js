@@ -82,7 +82,6 @@ exports.categoryWithBooksById = async (req, res) => {
 			where: {
 				id: req.params.id,
 			},
-			order: [['id', 'ASC']],
 			include: [{ model: tbl_kategori, as: 'Kategori_id', required: true }],
 		});
 		res.status(200).json(booksById);
