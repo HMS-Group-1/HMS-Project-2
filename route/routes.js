@@ -16,6 +16,9 @@ router.post('/login', loginValidation, Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
 
+// router user -- updateUser
+router.patch('/updateuser/:id', verifyUserToken, verifyUser, updateUsers);
+
 // router user--book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
