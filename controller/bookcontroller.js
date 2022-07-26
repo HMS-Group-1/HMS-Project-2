@@ -69,8 +69,23 @@ exports.getBooksPaginated = async (req, res) => {
 // ambil data buku dengan kategori
 exports.categoryWithBooks = async (req, res) => {
 	try {
-		const books = await tbl_buku.findAll({ include: [{ model: tbl_kategori, as: 'Kategori_id', required: true }] });
+		const books = await tbl_buku.findAll({ order: [['id', 'ASC']], include: [{ model: tbl_kategori, as: 'Kategori_id', required: true }] });
 		res.status(200).json(books);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+exports.categoryWithBooksById = async (req, res) => {
+	try {
+		const booksById = await tbl_buku.findOne({
+			where: {
+				id: req.params.id,
+			},
+			order: [['id', 'ASC']],
+			include: [{ model: tbl_kategori, as: 'Kategori_id', required: true }],
+		});
+		res.status(200).json(booksById);
 	} catch (error) {
 		console.log(error);
 	}
