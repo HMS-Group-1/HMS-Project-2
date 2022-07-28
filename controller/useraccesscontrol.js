@@ -82,7 +82,6 @@ exports.Logout = async (req, res) => {
 			refresh_token: refreshToken,
 		},
 	});
-	console.log('usernyaflkhiahos skafusd a' + user);
 	if (!user[0]) return res.sendStatus(204).json();
 	const userId = user[0].id;
 	await tbl_anggota.update(
