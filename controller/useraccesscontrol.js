@@ -76,17 +76,18 @@ exports.Login = async (req, res) => {
 // Logout USER
 exports.Logout = async (req, res) => {
 	const refreshToken = req.cookies.refreshToken;
-	if (!refreshToken) return res.sendStatus(204);
+	if (!refreshToken) return res.sendStatus(204).json();
 	const user = await tbl_anggota.findAll({
 		where: {
-			refreshToken: refreshToken,
+			refresh_token: refreshToken,
 		},
 	});
-	if (!user[0]) return res.sendStatus(204);
+	console.log('usernyaflkhiahos skafusd a' + user);
+	if (!user[0]) return res.sendStatus(204).json();
 	const userId = user[0].id;
 	await tbl_anggota.update(
 		{
-			refreshToken: null,
+			refresh_token: null,
 		},
 		{
 			where: {
