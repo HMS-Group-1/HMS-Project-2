@@ -1,5 +1,6 @@
 const models = require('../models');
 const tbl_anggota = models.tbl_anggota;
+const { validationResult } = require('express-validator');
 
 // GET USERS
 exports.getAllUsers = async (req, res) => {

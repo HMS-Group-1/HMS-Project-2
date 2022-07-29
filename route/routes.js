@@ -3,6 +3,7 @@ const { getAllUsers, updateUsers, deleteUsers } = require('../controller/admin')
 const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
+const { getRaks } = require('../controller/rak');
 const { Register, Login, Logout } = require('../controller/useraccesscontrol');
 const { loginValidation, registerValidation, bookValidation, userUpdateValidationAdmin } = require('../middleware/validator');
 const { verifyAdmin, verifyUser } = require('../middleware/verifyuserrole');
@@ -24,9 +25,12 @@ router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
 
 //route kategori -- admin && user
-router.get('/kategori', getAllKategori);
-router.get('/kategori/book', categoryWithBooks);
-router.get('/kategori/book/:id', categoryWithBooksById);
+router.get('/kategori', verifyUserToken, getAllKategori);
+router.get('/kategori/book', verifyUserToken, categoryWithBooks);
+router.get('/kategori/book/:id', verifyUserToken, categoryWithBooksById);
+
+// route rak -- admin && user
+router.get('/rak', verifyUserToken, getRaks);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyAdmin, getAllUsers);
@@ -37,7 +41,11 @@ router.delete('/admin/deleteUser/:id', verifyUserToken, verifyAdmin, deleteUsers
 router.get('/admin/book', verifyUserToken, verifyAdmin, getBooks);
 router.get('/admin/book/:id', verifyUserToken, verifyAdmin, getBookById);
 router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookValidation, createBooks);
-router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookValidation, updateBooks);
+
+// under scrunity
+router.patch('/admin/updateBook/:id', updateBooks);
+// please wait --
+
 router.delete('/admin/deleteBook/:id', verifyUserToken, verifyAdmin, deleteBooks);
 
 module.exports = router;
