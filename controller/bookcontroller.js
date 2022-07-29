@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const models = require('../models');
 const tbl_buku = models.tbl_buku;
 const tbl_kategori = models.tbl_kategori;
+const { validationResult } = require('express-validator');
 
 // untuk ambil data buku
 exports.getBooks = async (req, res) => {
@@ -16,7 +17,7 @@ exports.getBooks = async (req, res) => {
 // untuk ambil data paginasi daftar buku
 exports.getBooksPaginated = async (req, res) => {
 	const pageAt = parseInt(req.query.page) || 0;
-	const limitPage = parseInt(req.query.limit) || 12;
+	const limitPage = parseInt(req.query.limit) || 15;
 	const searchQuery = req.query.search_query || '';
 	const offset = limitPage * pageAt;
 
@@ -121,10 +122,17 @@ exports.createBooks = async (req, res) => {
 // untuk update data buku
 
 exports.updateBooks = async (req, res) => {
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
-		return res.status(400).json(errors);
-	}
+	// const errors = validationResult(req);
+	// if (!errors.isEmpty()) {
+	// 	return res.status(400).json(errors);
+	// }
+
+	const theBook = await tbl_buku.findOne({
+		where: {
+			id: req.params.id,
+		},
+	});
+	if (!theBook) return res.status(404).json({ message: 'No book found' });
 	try {
 		await tbl_buku.update(req.body, {
 			where: {
