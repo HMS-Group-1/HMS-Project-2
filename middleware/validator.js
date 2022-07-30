@@ -16,10 +16,11 @@ exports.bookValidation = [
 	check('tahun_terbit', 'Tidak boleh kosong!').not().isEmpty(),
 	check('tahun_terbit', 'Format YYYY').isLength({ min: 4, max: 4 }),
 	check('stok', 'Tidak boleh kosong').not().isEmpty(),
+	check('stok', 'Harus Angka').isNumeric(),
 	check('judul_buku', 'Tidak boleh kosong').not().isEmpty(),
 	check('kategori_id', 'Tidak boleh kosong').not().isEmpty(),
 	check('deskripsi', 'Tidak boleh kosong').not().isEmpty(),
-	check('gambar', 'Tidak boleh kosong').not().isEmpty(),
+
 	check('rak_id', 'Tidak boleh kosong').not().isEmpty(),
 ];
 
