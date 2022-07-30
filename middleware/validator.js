@@ -20,7 +20,6 @@ exports.bookValidation = [
 	check('judul_buku', 'Tidak boleh kosong').not().isEmpty(),
 	check('kategori_id', 'Tidak boleh kosong').not().isEmpty(),
 	check('deskripsi', 'Tidak boleh kosong').not().isEmpty(),
-
 	check('rak_id', 'Tidak boleh kosong').not().isEmpty(),
 ];
 
