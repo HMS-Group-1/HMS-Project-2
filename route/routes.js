@@ -43,7 +43,7 @@ router.get('/admin/book/:id', verifyUserToken, verifyAdmin, getBookById);
 router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookValidation, createBooks);
 
 // under scrunity
-router.patch('/admin/updateBook/:id', updateBooks);
+router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookValidation, updateBooks);
 // please wait --
 
 router.delete('/admin/deleteBook/:id', verifyUserToken, verifyAdmin, deleteBooks);

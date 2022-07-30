@@ -107,10 +107,10 @@ exports.getBookById = async (req, res) => {
 
 // untuk create data buku
 exports.createBooks = async (req, res) => {
-	const errors = validationResult(req);
-	if (!errors.isEmpty()) {
-		return res.status(400).json(errors);
-	}
+	// const errors = validationResult(req);
+	// if (!errors.isEmpty()) {
+	// 	return res.status(400).json(errors);
+	// }
 	try {
 		await tbl_buku.create(req.body);
 		res.status(201).json({ message: 'Book created' });
@@ -126,22 +126,40 @@ exports.updateBooks = async (req, res) => {
 	// if (!errors.isEmpty()) {
 	// 	return res.status(400).json(errors);
 	// }
-
 	const theBook = await tbl_buku.findOne({
 		where: {
 			id: req.params.id,
 		},
 	});
 	if (!theBook) return res.status(404).json({ message: 'No book found' });
+	let gambar = '';
+	if (req.files == null) {
+		gambar = theBook.gambar;
+	} else {
+		gambar = req.files.gambar[0].data;
+	}
+
+	const { judul_buku, kategori_id, deskripsi, stok, rak_id, tahun_terbit } = req.body;
 	try {
-		await tbl_buku.update(req.body, {
-			where: {
-				id: req.params.id,
+		await tbl_buku.update(
+			{
+				judul_buku: judul_buku,
+				kategori_id: kategori_id,
+				deskripsi: deskripsi,
+				gambar: gambar,
+				stok: stok,
+				rak_id: rak_id,
+				tahun_terbit: tahun_terbit,
 			},
-		});
+			{
+				where: {
+					id: req.params.id,
+				},
+			}
+		);
 		res.status(200).json({ message: 'Book Updated' });
 	} catch (error) {
-		console.log(error.message);
+		console.log(error);
 	}
 };
 
