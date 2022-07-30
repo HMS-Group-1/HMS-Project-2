@@ -111,8 +111,18 @@ exports.createBooks = async (req, res) => {
 	// if (!errors.isEmpty()) {
 	// 	return res.status(400).json(errors);
 	// }
+	const gambar = req.files.gambar[0].data;
+	const { judul_buku, kategori_id, deskripsi, stok, rak_id, tahun_terbit } = req.body;
 	try {
-		await tbl_buku.create(req.body);
+		await tbl_buku.create({
+			judul_buku: judul_buku,
+			kategori_id: kategori_id,
+			deskripsi: deskripsi,
+			gambar: gambar,
+			stok: stok,
+			rak_id: rak_id,
+			tahun_terbit: tahun_terbit,
+		});
 		res.status(201).json({ message: 'Book created' });
 	} catch (error) {
 		console.log(error.message);
