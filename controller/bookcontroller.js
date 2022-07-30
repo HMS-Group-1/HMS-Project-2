@@ -107,10 +107,10 @@ exports.getBookById = async (req, res) => {
 
 // untuk create data buku
 exports.createBooks = async (req, res) => {
-	// const errors = validationResult(req);
-	// if (!errors.isEmpty()) {
-	// 	return res.status(400).json(errors);
-	// }
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	const gambar = req.files.gambar[0].data;
 	const { judul_buku, kategori_id, deskripsi, stok, rak_id, tahun_terbit } = req.body;
 	try {
@@ -132,10 +132,10 @@ exports.createBooks = async (req, res) => {
 // untuk update data buku
 
 exports.updateBooks = async (req, res) => {
-	// const errors = validationResult(req);
-	// if (!errors.isEmpty()) {
-	// 	return res.status(400).json(errors);
-	// }
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json(errors);
+	}
 	const theBook = await tbl_buku.findOne({
 		where: {
 			id: req.params.id,
