@@ -16,8 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'Buku_id',
 		});
 		tbl_peminjaman.belongsTo(models.tbl_anggota, {
-			foreignKey: 'member_id',
-			as: 'Member_id',
+			foreignKey: 'anggota_id',
 		});
 	};
 	return tbl_peminjaman;

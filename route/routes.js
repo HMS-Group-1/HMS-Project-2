@@ -3,6 +3,8 @@ const { getAllUsers, updateUsers, deleteUsers } = require('../controller/admin')
 const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
+const { pinjamBuku } = require('../controller/peminjaman');
+const { kembalikanBuku } = require('../controller/pengembalian');
 const { getRaks } = require('../controller/rak');
 const { Register, Login, Logout } = require('../controller/useraccesscontrol');
 const { loginValidation, registerValidation, bookValidation, userUpdateValidationAdmin } = require('../middleware/validator');
@@ -11,7 +13,7 @@ const { verifyUserToken } = require('../middleware/verifyusertoken');
 
 const router = express.Router();
 
-// router user
+// router user -- administration
 router.post('/register', registerValidation, Register);
 router.post('/login', loginValidation, Login);
 router.get('/token', refreshToken);
@@ -23,6 +25,8 @@ router.patch('/updateuser/:id', verifyUserToken, verifyUser, updateUsers);
 // router user--book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
+router.post('/pinjam/:id', pinjamBuku);
+router.post('/kembalikan/:id', kembalikanBuku);
 
 //route kategori -- admin && user
 router.get('/kategori', verifyUserToken, getAllKategori);
