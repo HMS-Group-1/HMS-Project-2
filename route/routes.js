@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllUsers, updateUsers, deleteUsers } = require('../controller/admin');
-const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById } = require('../controller/bookcontroller');
+const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById, pinjamBuku, kembalikanBuku } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
 const { getRaks } = require('../controller/rak');
@@ -11,7 +11,7 @@ const { verifyUserToken } = require('../middleware/verifyusertoken');
 
 const router = express.Router();
 
-// router user
+// router user -- administration
 router.post('/register', registerValidation, Register);
 router.post('/login', loginValidation, Login);
 router.get('/token', refreshToken);
@@ -23,6 +23,8 @@ router.patch('/updateuser/:id', verifyUserToken, verifyUser, updateUsers);
 // router user--book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
+router.post('/pinjam/:id', verifyUserToken, verifyUser, pinjamBuku);
+router.patch('/kembalikan/:id', verifyUserToken, verifyUser, kembalikanBuku);
 
 //route kategori -- admin && user
 router.get('/kategori', verifyUserToken, getAllKategori);

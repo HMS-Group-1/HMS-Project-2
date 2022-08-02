@@ -8,15 +8,7 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
-			tgl_peminjaman: {
-				type: Sequelize.DATE,
-				allowNull: false,
-				defaultValue: Sequelize.fn('now'),
-			},
-			staff_id: {
-				type: Sequelize.INTEGER,
-			},
-			member_id: {
+			anggota_id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
@@ -31,6 +23,11 @@ module.exports = {
 					model: 'tbl_bukus',
 					key: 'id',
 				},
+			},
+			isPinjam: {
+				type: Sequelize.BOOLEAN,
+				allowNull: false,
+				defaultValue: 1,
 			},
 			createdAt: {
 				allowNull: false,

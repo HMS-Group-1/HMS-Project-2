@@ -3,10 +3,9 @@ module.exports = (sequelize, DataTypes) => {
 	const tbl_peminjaman = sequelize.define(
 		'tbl_peminjaman',
 		{
-			tgl_peminjaman: DataTypes.DATE,
-			staff_id: DataTypes.INTEGER,
-			member_id: DataTypes.INTEGER,
+			anggota_id: DataTypes.INTEGER,
 			buku_id: DataTypes.INTEGER,
+			isPinjam: DataTypes.BOOLEAN,
 		},
 		{}
 	);
@@ -16,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'Buku_id',
 		});
 		tbl_peminjaman.belongsTo(models.tbl_anggota, {
-			foreignKey: 'member_id',
-			as: 'Member_id',
+			foreignKey: 'anggota_id',
+			as: 'Anggota_id',
 		});
 	};
 	return tbl_peminjaman;
