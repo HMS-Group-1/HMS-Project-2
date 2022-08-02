@@ -1,33 +1,45 @@
 'use strict';
 
-const { faker } = require('@faker-js/faker');
-
-const rakGenerator = () => {
-	let array = [];
-	let id = 1;
-	for (let i = 0; i < 15; i++) {
-		let bannedChars = [];
-		let namaRak = faker.random.alpha({ bannedChars: bannedChars }).toUpperCase();
-		bannedChars.push(namaRak);
-		let obj = {
-			id: id,
-			nama_rak: namaRak,
-			lokasi_rak: `Ruang ${namaRak}`,
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		};
-		id++;
-		array.push(obj);
-	}
-
-	return array;
+const rakGenerator = (nama_rak, lokasi_rak) => {
+	let obj = {
+		nama_rak: nama_rak,
+		lokasi_rak: lokasi_rak,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+	};
+	return obj;
 };
-
-console.log(rakGenerator());
 
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		return queryInterface.bulkInsert('tbl_raks');
+		return queryInterface.bulkInsert('tbl_raks', [
+			rakGenerator('A', 'Ruang A'),
+			rakGenerator('B', 'Ruang B'),
+			rakGenerator('C', 'Ruang C'),
+			rakGenerator('D', 'Ruang D'),
+			rakGenerator('E', 'Ruang E'),
+			rakGenerator('F', 'Ruang F'),
+			rakGenerator('G', 'Ruang G'),
+			rakGenerator('H', 'Ruang H'),
+			rakGenerator('I', 'Ruang I'),
+			rakGenerator('J', 'Ruang J'),
+			rakGenerator('K', 'Ruang K'),
+			rakGenerator('L', 'Ruang L'),
+			rakGenerator('M', 'Ruang M'),
+			rakGenerator('N', 'Ruang N'),
+			rakGenerator('O', 'Ruang O'),
+			rakGenerator('P', 'Ruang P'),
+			rakGenerator('Q', 'Ruang Q'),
+			rakGenerator('R', 'Ruang R'),
+			rakGenerator('S', 'Ruang S'),
+			rakGenerator('T', 'Ruang T'),
+			rakGenerator('U', 'Ruang U'),
+			rakGenerator('V', 'Ruang V'),
+			rakGenerator('W', 'Ruang W'),
+			rakGenerator('X', 'Ruang X'),
+			rakGenerator('Y', 'Ruang Y'),
+			rakGenerator('Z', 'Ruang Z'),
+		]);
 	},
 
 	async down(queryInterface, Sequelize) {
