@@ -12,6 +12,20 @@ exports.getAllUsers = async (req, res) => {
 	}
 };
 
+// GET USERS BY ID
+exports.getUserById = async (req, res) => {
+	try {
+		const response = await tbl_anggota.findOne({
+			where: {
+				id: req.params.id,
+			},
+		});
+		res.json(response);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 // UPDATE USERS
 exports.updateUsers = async (req, res) => {
 	const errors = validationResult(req);
