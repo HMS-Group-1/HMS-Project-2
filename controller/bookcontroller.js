@@ -2,6 +2,8 @@ const { Op } = require('sequelize');
 const models = require('../models');
 const tbl_buku = models.tbl_buku;
 const tbl_kategori = models.tbl_kategori;
+const tbl_peminjaman = models.tbl_peminjaman;
+const tbl_pengembalian = models.tbl_pengembalian;
 const { validationResult } = require('express-validator');
 
 // untuk ambil data buku
@@ -170,6 +172,119 @@ exports.updateBooks = async (req, res) => {
 		res.status(200).json({ message: 'Book Updated' });
 	} catch (error) {
 		console.log(error);
+	}
+};
+
+// Pinjam buku
+exports.pinjamBuku = async (req, res) => {
+	try {
+		const isAlreadyPinjam = await tbl_peminjaman.findAll({
+			where: {
+				buku_id: req.params.id,
+				anggota_id: req.userId,
+				isPinjam: true,
+			},
+		});
+
+		if (isAlreadyPinjam.length > 0) return res.status(401).json('Buku sudah dipinjam!');
+
+		const theBook = await tbl_buku.findOne({
+			where: {
+				id: req.params.id,
+			},
+		});
+		if (!theBook) return res.status(400).json('Buku tidak ada!');
+		if (theBook.stok == 0) return res.status(404).json('Stok tidak ada!');
+
+		await tbl_buku.update(
+			{ stok: theBook.stok - 1 },
+			{
+				where: {
+					id: req.params.id,
+				},
+			}
+		);
+
+		const pinjam = await tbl_peminjaman.create({
+			anggota_id: req.userId,
+			buku_id: req.params.id,
+			isPinjam: 1,
+		});
+
+		const kembali = await tbl_pengembalian.create({
+			anggota_id: req.userId,
+			buku_id: req.params.id,
+			isKembali: 0,
+		});
+
+		res.status(200).json({
+			message: 'Berhasil Pinjam',
+			statusPinjam: pinjam,
+			statusKembali: kembali,
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Kembalikan buku
+exports.kembalikanBuku = async (req, res) => {
+	try {
+		const peminjam = await tbl_peminjaman.findAll({
+			where: {
+				buku_id: req.params.id,
+				isPinjam: true,
+			},
+		});
+
+		if (peminjam[0].anggota_id !== req.userId) return res.status(401).json('Tidak diizinkan!');
+
+		const theBook = await tbl_buku.findOne({
+			where: {
+				id: req.params.id,
+			},
+		});
+
+		if (!theBook) return res.status(400).json('Buku tidak ada!');
+
+		await tbl_buku.update(
+			{
+				stok: theBook.stok + 1,
+			},
+			{
+				where: {
+					id: theBook.id,
+				},
+			}
+		);
+
+		await tbl_pengembalian.update(
+			{
+				isKembali: true,
+			},
+			{
+				where: {
+					buku_id: theBook.id,
+					isKembali: false,
+				},
+			}
+		);
+
+		await tbl_peminjaman.update(
+			{
+				isPinjam: false,
+			},
+			{
+				where: {
+					buku_id: theBook.id,
+					isPinjam: true,
+				},
+			}
+		);
+
+		res.status(200).json('Berhasil dikembalikan!');
+	} catch (error) {
+		console.log(error.message);
 	}
 };
 

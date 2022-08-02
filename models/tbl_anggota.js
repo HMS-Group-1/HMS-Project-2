@@ -12,13 +12,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{}
 	);
-	tbl_anggota.associate = function (models) {
-		tbl_anggota.hasMany(models.tbl_peminjaman, {
-			as: 'tbl_peminjaman',
-		});
-		tbl_anggota.hasMany(models.tbl_pengembalian, {
-			as: 'tbl_pengembalian',
-		});
-	};
+	tbl_anggota.associate = function (models) {};
 	return tbl_anggota;
 };

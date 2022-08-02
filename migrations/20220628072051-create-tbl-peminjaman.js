@@ -27,7 +27,7 @@ module.exports = {
 			isPinjam: {
 				type: Sequelize.BOOLEAN,
 				allowNull: false,
-				defaultValue: false,
+				defaultValue: 1,
 			},
 			createdAt: {
 				allowNull: false,

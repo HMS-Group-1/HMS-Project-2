@@ -1,13 +1,11 @@
 'use strict';
-const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
 	const tbl_pengembalian = sequelize.define(
 		'tbl_pengembalian',
 		{
-			tgl_pengembalian: DataTypes.DATE,
-			staff_id: DataTypes.INTEGER,
-			member_id: DataTypes.INTEGER,
+			anggota_id: DataTypes.INTEGER,
 			buku_id: DataTypes.INTEGER,
+			isKembali: DataTypes.BOOLEAN,
 		},
 		{}
 	);

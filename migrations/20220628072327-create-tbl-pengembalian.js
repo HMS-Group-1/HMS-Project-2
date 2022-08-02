@@ -27,7 +27,7 @@ module.exports = {
 			isKembali: {
 				type: Sequelize.BOOLEAN,
 				allowNull: false,
-				defaultValue: false,
+				defaultValue: 0,
 			},
 			createdAt: {
 				allowNull: false,
