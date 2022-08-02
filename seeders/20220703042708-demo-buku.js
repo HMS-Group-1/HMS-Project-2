@@ -42,18 +42,17 @@ const stockGenerator = () => {
 	return randomNumbersMinMax(100, 1000);
 };
 
-// perlu diubah sesuai dengan jumlah tbl_kategori
-const categoryGenerator = () => {
-	return randomNumbersMinMax(1, 31);
-};
+const stok = faker.datatype.number(100);
+
+console.log(stok);
 
 const bookGenerator = (judul_buku, path) => {
 	let obj = {
 		judul_buku: judul_buku,
-		kategori_id: categoryGenerator(),
+		kategori_id: faker.datatype.number({ min: 1, max: 100 }),
 		deskripsi: deskripsi(),
 		gambar: fs.readFileSync(`./public/images/${path}.jpg`),
-		stok: stockGenerator(),
+		stok: faker.datatype.number({ max: 200 }),
 		rak_id: rak_idGenerator(),
 		tahun_terbit: tahunTerbit(),
 		createdAt: new Date(),
