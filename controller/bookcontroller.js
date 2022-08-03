@@ -5,11 +5,14 @@ const tbl_kategori = models.tbl_kategori;
 const tbl_peminjaman = models.tbl_peminjaman;
 const tbl_pengembalian = models.tbl_pengembalian;
 const { validationResult } = require('express-validator');
+const { sequelize } = require('../models');
 
 // untuk ambil data buku
 exports.getBooks = async (req, res) => {
 	try {
-		const books = await tbl_buku.findAll();
+		const books = await tbl_buku.findAll({
+			order: [['createdAt', 'DESC']],
+		});
 		res.status(200).json(books);
 	} catch (error) {
 		console.log(error);
@@ -175,6 +178,20 @@ exports.updateBooks = async (req, res) => {
 	}
 };
 
+// List pinjam buku
+exports.listPinjamBuku = async (req, res) => {
+	try {
+		const dataPeminjam = await tbl_peminjaman.findAll({
+			where: {
+				anggota_id: req.userId,
+			},
+		});
+		res.status(200).json(dataPeminjam);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 // Pinjam buku
 exports.pinjamBuku = async (req, res) => {
 	try {
@@ -227,6 +244,20 @@ exports.pinjamBuku = async (req, res) => {
 	}
 };
 
+// List pengembalian buku
+exports.listBukuKembali = async (req, res) => {
+	try {
+		const dataPengembali = await tbl_pengembalian.findAll({
+			where: {
+				anggota_id: req.userId,
+			},
+		});
+		res.status(200).json(dataPengembali);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 // Kembalikan buku
 exports.kembalikanBuku = async (req, res) => {
 	try {
@@ -237,6 +268,7 @@ exports.kembalikanBuku = async (req, res) => {
 			},
 		});
 
+		if (peminjam.length == 0) return res.status(404).json('Tidak ada yang meminjam!');
 		if (peminjam[0].anggota_id !== req.userId) return res.status(401).json('Tidak diizinkan!');
 
 		const theBook = await tbl_buku.findOne({

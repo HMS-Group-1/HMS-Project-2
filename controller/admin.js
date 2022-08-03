@@ -1,5 +1,7 @@
 const models = require('../models');
 const tbl_anggota = models.tbl_anggota;
+const tbl_peminjaman = models.tbl_peminjaman;
+const tbl_pengembalian = models.tbl_pengembalian;
 const { validationResult } = require('express-validator');
 
 // GET USERS
@@ -55,5 +57,29 @@ exports.deleteUsers = async (req, res) => {
 		res.status(200).json({ message: 'User Deleted' });
 	} catch (error) {
 		console.log(error.message);
+	}
+};
+
+// List Peminjaman
+exports.listPinjamAdmin = async (req, res) => {
+	try {
+		const listPinjam = await tbl_peminjaman.findAll({
+			order: [['createdAt', 'DESC']],
+		});
+		res.status(200).json(listPinjam);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// List Pengembalian
+exports.listPengembalianAdmin = async (req, res) => {
+	try {
+		const listPengembalian = await tbl_pengembalian.findAll({
+			order: [['createdAt', 'DESC']],
+		});
+		res.status(200).json(listPengembalian);
+	} catch (error) {
+		console.log(error);
 	}
 };
