@@ -29,16 +29,16 @@ module.exports = {
 				allowNull: false,
 				defaultValue: 0,
 			},
-			durasiPinjam: {
-				type: Sequelize.INTEGER,
+			tanggalPengembalian: {
+				type: Sequelize.DATEONLY,
 			},
 			createdAt: {
 				allowNull: false,
-				type: Sequelize.DATEONLY,
+				type: Sequelize.DATE,
 			},
 			updatedAt: {
 				allowNull: false,
-				type: Sequelize.DATEONLY,
+				type: Sequelize.DATE,
 			},
 		});
 	},

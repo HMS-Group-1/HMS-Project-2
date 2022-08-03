@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 	tbl_buku.associate = function (models) {
 		tbl_buku.belongsTo(models.tbl_kategori, { foreignKey: 'kategori_id', as: 'Kategori_id' });
 		tbl_buku.belongsTo(models.tbl_rak, { foreignKey: 'rak_id', as: 'Rak_id' });
+		tbl_buku.hasMany(models.tbl_peminjaman, { foreignKey: 'buku_id' });
 	};
 	return tbl_buku;
 };

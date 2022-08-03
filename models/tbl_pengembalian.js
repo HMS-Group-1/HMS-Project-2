@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 			anggota_id: DataTypes.INTEGER,
 			buku_id: DataTypes.INTEGER,
 			isKembali: DataTypes.BOOLEAN,
+			tanggalPengembalian: DataTypes.DATEONLY,
 		},
 		{}
 	);

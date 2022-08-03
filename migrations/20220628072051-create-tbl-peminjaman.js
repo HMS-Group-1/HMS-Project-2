@@ -29,13 +29,17 @@ module.exports = {
 				allowNull: false,
 				defaultValue: 1,
 			},
+			tanggalPinjam: {
+				type: Sequelize.DATEONLY,
+				allowNull: false,
+			},
 			createdAt: {
 				allowNull: false,
-				type: Sequelize.DATEONLY,
+				type: Sequelize.DATE,
 			},
 			updatedAt: {
 				allowNull: false,
-				type: Sequelize.DATEONLY,
+				type: Sequelize.DATE,
 			},
 		});
 	},
