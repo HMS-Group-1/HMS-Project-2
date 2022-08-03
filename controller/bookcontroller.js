@@ -189,8 +189,10 @@ exports.listPinjamBuku = async (req, res) => {
 			where: {
 				anggota_id: req.userId,
 			},
-			include: [{ model: tbl_buku, attributes: ['judul_buku'] }],
+			include: [{ model: tbl_buku, attributes: ['judul_buku'], include: [{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] }] }],
 		});
+
+		// const bookCategory = tbl_buku.findOne
 		res.status(200).json(dataPeminjam);
 	} catch (error) {
 		console.log(error);
@@ -257,6 +259,7 @@ exports.listBukuKembali = async (req, res) => {
 			where: {
 				anggota_id: req.userId,
 			},
+			include: [{ model: tbl_buku, attributes: ['judul_buku'], include: [{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] }] }],
 		});
 		res.status(200).json(dataPengembali);
 	} catch (error) {
