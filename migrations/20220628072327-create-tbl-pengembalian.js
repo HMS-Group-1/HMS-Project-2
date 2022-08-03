@@ -32,6 +32,9 @@ module.exports = {
 			tanggalPengembalian: {
 				type: Sequelize.DATEONLY,
 			},
+			durasiPinjam: {
+				type: Sequelize.INTEGER,
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

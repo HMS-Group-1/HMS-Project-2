@@ -299,10 +299,15 @@ exports.kembalikanBuku = async (req, res) => {
 			}
 		);
 
+		const startDate = new Date(peminjam[0].tanggalPinjam);
+		const endDate = new Date(today);
+		const lamaPinjam = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
 		await tbl_pengembalian.update(
 			{
 				isKembali: true,
 				tanggalPengembalian: today,
+				durasiPinjam: lamaPinjam,
 			},
 			{
 				where: {
@@ -324,7 +329,10 @@ exports.kembalikanBuku = async (req, res) => {
 			}
 		);
 
-		res.status(200).json('Berhasil dikembalikan!');
+		res.status(200).json({
+			message: 'Berhasil Dikembalikan',
+			lamaPinjam: lamaPinjam + ' hari',
+		});
 	} catch (error) {
 		console.log(error.message);
 	}
