@@ -5,7 +5,9 @@ const tbl_kategori = models.tbl_kategori;
 const tbl_peminjaman = models.tbl_peminjaman;
 const tbl_pengembalian = models.tbl_pengembalian;
 const { validationResult } = require('express-validator');
-const { sequelize } = require('../models');
+
+const now = new Date();
+const today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 
 // untuk ambil data buku
 exports.getBooks = async (req, res) => {
@@ -62,6 +64,7 @@ exports.getBooksPaginated = async (req, res) => {
 		offset: offset,
 		limit: limitPage,
 		order: [['createdAt', 'DESC']],
+		include: [{ model: tbl_peminjaman, attributes: ['isPinjam'], where: { anggota_id: req.userId }, order: [['createdAt', 'DESC']], limit: 1 }],
 	});
 
 	res.json({
@@ -103,6 +106,7 @@ exports.getBookById = async (req, res) => {
 			where: {
 				id: req.params.id,
 			},
+			include: [{ model: tbl_peminjaman, attributes: ['isPinjam'], where: { anggota_id: req.userId }, order: [['createdAt', 'DESC']], limit: 1, required: true, all: true }],
 		});
 		res.status(200).json(bookById);
 	} catch (error) {
@@ -185,6 +189,7 @@ exports.listPinjamBuku = async (req, res) => {
 			where: {
 				anggota_id: req.userId,
 			},
+			include: [{ model: tbl_buku, attributes: ['judul_buku'] }],
 		});
 		res.status(200).json(dataPeminjam);
 	} catch (error) {
@@ -226,6 +231,7 @@ exports.pinjamBuku = async (req, res) => {
 			anggota_id: req.userId,
 			buku_id: req.params.id,
 			isPinjam: 1,
+			tanggalPinjam: today,
 		});
 
 		const kembali = await tbl_pengembalian.create({
@@ -293,6 +299,7 @@ exports.kembalikanBuku = async (req, res) => {
 		await tbl_pengembalian.update(
 			{
 				isKembali: true,
+				tanggalPengembalian: today,
 			},
 			{
 				where: {
