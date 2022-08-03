@@ -97,3 +97,73 @@ exports.Logout = async (req, res) => {
 	res.clearCookie('refreshToken');
 	return res.sendStatus(200);
 };
+
+exports.getUserById = async (req, res) => {
+	try {
+		const anggota = await tbl_anggota.findOne({
+			where: {
+				id: req.userId,
+			},
+		});
+		console.log(req.userId);
+		res.status(200).json(anggota);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+exports.updateUser = async (req, res) => {
+	try {
+		const { nama, email, no_telp } = req.body;
+
+		const findUser = await tbl_anggota.findOne({
+			where: {
+				id: req.userId,
+			},
+		});
+
+		if (!findUser) return res.status(404).json('User tidak ada!');
+
+		await tbl_anggota.update(
+			{
+				nama: nama,
+				email: email,
+				no_telp: no_telp,
+			},
+			{
+				where: {
+					id: req.userId,
+				},
+			}
+		);
+
+		res.status(200).json('Berhasil update');
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+exports.changePassword = async (req, res) => {
+	try {
+		const { oldPassword, newPassword } = req.body;
+		const findUser = await tbl_anggota.findOne({
+			where: {
+				id: req.userId,
+			},
+		});
+		if (!findUser) return res.status(404).json('User tidak ada!');
+		const match = await bcrypt.compare(oldPassword, findUser.password);
+		console.log(match);
+		if (!match) return res.status(400).json('Password tidak cocok!');
+		const hashedPassword = await bcrypt.hash(newPassword, 10);
+		await tbl_anggota.update(
+			{
+				password: hashedPassword,
+			},
+			{ where: { id: req.userId } }
+		);
+		res.status(200).json('Password berhasil diubah');
+	} catch (error) {
+		console.log(error);
+	}
+};

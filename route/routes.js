@@ -4,7 +4,7 @@ const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPa
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
 const { getRaks } = require('../controller/rak');
-const { Register, Login, Logout } = require('../controller/useraccesscontrol');
+const { Register, Login, Logout, updateUser, changePassword } = require('../controller/useraccesscontrol');
 const { loginValidation, registerValidation, bookValidation, userUpdateValidationAdmin } = require('../middleware/validator');
 const { verifyAdmin, verifyUser } = require('../middleware/verifyuserrole');
 const { verifyUserToken } = require('../middleware/verifyusertoken');
@@ -17,8 +17,10 @@ router.post('/login', loginValidation, Login);
 router.get('/token', refreshToken);
 router.delete('/logout', Logout);
 
-// router user -- updateUser
-router.patch('/updateuser/:id', verifyUserToken, verifyUser, updateUsers);
+// router user -- about user
+router.get('/userdata', verifyUserToken, verifyUser, getUserById);
+router.patch('/changePassword', verifyUserToken, verifyUser, changePassword);
+router.patch('/updateuser/', verifyUserToken, verifyUser, updateUser);
 
 // router user--book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
