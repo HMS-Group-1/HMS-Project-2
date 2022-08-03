@@ -1,6 +1,6 @@
 const express = require('express');
-const { getAllUsers, updateUsers, deleteUsers, getUserById } = require('../controller/admin');
-const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById, pinjamBuku, kembalikanBuku } = require('../controller/bookcontroller');
+const { getAllUsers, updateUsers, deleteUsers, getUserById, listPinjamAdmin, listPengembalianAdmin } = require('../controller/admin');
+const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById, pinjamBuku, kembalikanBuku, listPinjamBuku, listBukuKembali } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
 const { getRaks } = require('../controller/rak');
@@ -23,6 +23,10 @@ router.patch('/updateuser/:id', verifyUserToken, verifyUser, updateUsers);
 // router user--book
 router.get('/book', verifyUserToken, verifyUser, getBooksPaginated);
 router.get('/book/:id', verifyUserToken, verifyUser, getBookById);
+
+// router user -- pinjam/kembalikan
+router.get('/listPinjam', verifyUserToken, verifyUser, listPinjamBuku);
+router.get('/listKembali', verifyUserToken, verifyUser, listBukuKembali);
 router.post('/pinjam/:id', verifyUserToken, verifyUser, pinjamBuku);
 router.patch('/kembalikan/:id', verifyUserToken, verifyUser, kembalikanBuku);
 
@@ -46,5 +50,9 @@ router.get('/admin/book/:id', verifyUserToken, verifyAdmin, getBookById);
 router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookValidation, createBooks);
 router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookValidation, updateBooks);
 router.delete('/admin/deleteBook/:id', verifyUserToken, verifyAdmin, deleteBooks);
+
+// router admin--peminjaman/pengembalian book
+router.get('/admin/pinjamBook', verifyUserToken, verifyAdmin, listPinjamAdmin);
+router.get('/admin/kembalikanBook', verifyUserToken, verifyAdmin, listPengembalianAdmin);
 
 module.exports = router;
