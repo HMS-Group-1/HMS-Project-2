@@ -6,13 +6,6 @@ const randomNumbers = (max) => {
 	return Math.floor(Math.random() * max);
 };
 
-const randomNumbersMinMax = (min = 8, max = 15) => {
-	const difference = max - min;
-	let result = randomNumbers(difference);
-	result = result + min;
-	return result;
-};
-
 const tahunTerbit = () => {
 	const tahun = [1];
 	const digitKeDua = [6, 7, 8, 9];
@@ -33,19 +26,6 @@ const deskripsi = () => {
 	return paragraf;
 };
 
-// perlu diubah sesuai dengan jumlah tbl_rak
-const rak_idGenerator = () => {
-	return randomNumbersMinMax(1, 27);
-};
-
-const stockGenerator = () => {
-	return randomNumbersMinMax(100, 1000);
-};
-
-const stok = faker.datatype.number(100);
-
-console.log(stok);
-
 const bookGenerator = (judul_buku, path) => {
 	let obj = {
 		judul_buku: judul_buku,
@@ -53,7 +33,7 @@ const bookGenerator = (judul_buku, path) => {
 		deskripsi: deskripsi(),
 		gambar: fs.readFileSync(`./public/images/${path}.jpg`),
 		stok: faker.datatype.number({ max: 200 }),
-		rak_id: rak_idGenerator(),
+		rak_id: faker.datatype.number({ min: 1, max: 26 }),
 		tahun_terbit: tahunTerbit(),
 		createdAt: new Date(),
 		updatedAt: new Date(),

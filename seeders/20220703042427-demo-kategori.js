@@ -4,10 +4,10 @@ const { faker } = require('@faker-js/faker');
 
 const categoryGenerator = () => {
 	let array = [];
-	let id = 0;
+	let id = 1;
 	for (let i = 0; i < 100; i++) {
 		let obj = {
-			id: id + 1,
+			id: id,
 			kategori_nama: faker.random.word(),
 			createdAt: new Date(),
 			updatedAt: new Date(),
@@ -17,8 +17,6 @@ const categoryGenerator = () => {
 	}
 	return array;
 };
-
-console.log(categoryGenerator());
 
 module.exports = {
 	async up(queryInterface, Sequelize) {
