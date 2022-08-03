@@ -7,13 +7,13 @@ module.exports = (sequelize, DataTypes) => {
 			buku_id: DataTypes.INTEGER,
 			isKembali: DataTypes.BOOLEAN,
 			tanggalPengembalian: DataTypes.DATEONLY,
+			durasiPinjam: DataTypes.INTEGER,
 		},
 		{}
 	);
 	tbl_pengembalian.associate = function (models) {
 		tbl_pengembalian.belongsTo(models.tbl_buku, {
 			foreignKey: 'buku_id',
-			as: 'Buku_id',
 		});
 		tbl_pengembalian.belongsTo(models.tbl_anggota, {
 			foreignKey: 'anggota_id',

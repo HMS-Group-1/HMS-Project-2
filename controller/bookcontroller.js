@@ -189,8 +189,10 @@ exports.listPinjamBuku = async (req, res) => {
 			where: {
 				anggota_id: req.userId,
 			},
-			include: [{ model: tbl_buku, attributes: ['judul_buku'] }],
+			include: [{ model: tbl_buku, attributes: ['judul_buku'], include: [{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] }] }],
 		});
+
+		// const bookCategory = tbl_buku.findOne
 		res.status(200).json(dataPeminjam);
 	} catch (error) {
 		console.log(error);
@@ -257,6 +259,7 @@ exports.listBukuKembali = async (req, res) => {
 			where: {
 				anggota_id: req.userId,
 			},
+			include: [{ model: tbl_buku, attributes: ['judul_buku'], include: [{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] }] }],
 		});
 		res.status(200).json(dataPengembali);
 	} catch (error) {
@@ -296,10 +299,15 @@ exports.kembalikanBuku = async (req, res) => {
 			}
 		);
 
+		const startDate = new Date(peminjam[0].tanggalPinjam);
+		const endDate = new Date(today);
+		const lamaPinjam = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+
 		await tbl_pengembalian.update(
 			{
 				isKembali: true,
 				tanggalPengembalian: today,
+				durasiPinjam: lamaPinjam,
 			},
 			{
 				where: {
@@ -321,7 +329,10 @@ exports.kembalikanBuku = async (req, res) => {
 			}
 		);
 
-		res.status(200).json('Berhasil dikembalikan!');
+		res.status(200).json({
+			message: 'Berhasil Dikembalikan',
+			lamaPinjam: lamaPinjam + ' hari',
+		});
 	} catch (error) {
 		console.log(error.message);
 	}
