@@ -8,7 +8,7 @@ const categoryGenerator = () => {
 	for (let i = 0; i < 100; i++) {
 		let obj = {
 			id: id,
-			kategori_nama: faker.random.word(),
+			kategori_nama: faker.word.noun(5).toLowerCase(),
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		};
