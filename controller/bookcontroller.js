@@ -4,10 +4,20 @@ const tbl_buku = models.tbl_buku;
 const tbl_kategori = models.tbl_kategori;
 const tbl_peminjaman = models.tbl_peminjaman;
 const tbl_pengembalian = models.tbl_pengembalian;
+const tbl_rak = models.tbl_rak;
 const { validationResult } = require('express-validator');
 
 const now = new Date();
 const today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+const stringToBoolean = (input) => {
+	switch (input) {
+		case 'true':
+			return true;
+
+		case 'false':
+			return false;
+	}
+};
 
 // untuk ambil data buku
 exports.getBooks = async (req, res) => {
@@ -33,12 +43,12 @@ exports.getBooksPaginated = async (req, res) => {
 			[Op.or]: [
 				{
 					judul_buku: {
-						[Op.like]: '%' + searchQuery + '%',
+						[Op.like]: '%' + searchQuery,
 					},
 				},
 				{
 					deskripsi: {
-						[Op.like]: '%' + searchQuery + '%',
+						[Op.like]: '%' + searchQuery,
 					},
 				},
 			],
@@ -51,12 +61,12 @@ exports.getBooksPaginated = async (req, res) => {
 			[Op.or]: [
 				{
 					judul_buku: {
-						[Op.like]: '%' + searchQuery + '%',
+						[Op.like]: '%' + searchQuery,
 					},
 				},
 				{
 					deskripsi: {
-						[Op.like]: '%' + searchQuery + '%',
+						[Op.like]: '%' + searchQuery,
 					},
 				},
 			],
@@ -184,16 +194,103 @@ exports.updateBooks = async (req, res) => {
 
 // List pinjam buku
 exports.listPinjamBuku = async (req, res) => {
+	const pageAt = parseInt(req.query.page) || 0;
+	const limitPage = parseInt(req.query.limit) || 10;
+	const searchQuery = req.query.search_query || '';
+	const kategori = req.query.kategori || '';
+	const rak = req.query.rak || '';
+	const isPinjam = stringToBoolean(req.query.isPinjam);
+	console.log(isPinjam);
+	const offset = limitPage * pageAt;
+
 	try {
-		const dataPeminjam = await tbl_peminjaman.findAll({
+		const jumlahBaris = await tbl_peminjaman.count({
 			where: {
 				anggota_id: req.userId,
+				isPinjam: isPinjam,
 			},
-			include: [{ model: tbl_buku, attributes: ['judul_buku'], include: [{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] }] }],
+			required: true,
+			include: [
+				{
+					model: tbl_buku,
+					attributes: ['judul_buku'],
+					where: {
+						judul_buku: {
+							[Op.like]: '%' + searchQuery + '%',
+						},
+					},
+					include: [
+						{
+							model: tbl_kategori,
+							as: 'Kategori_id',
+							attributes: ['kategori_nama'],
+							where: {
+								kategori_nama: {
+									[Op.like]: '%' + kategori + '%',
+								},
+							},
+						},
+						{
+							model: tbl_rak,
+							as: 'Rak_id',
+							attributes: ['lokasi_rak'],
+							where: {
+								lokasi_rak: { [Op.like]: '%' + rak + '%' },
+							},
+						},
+					],
+				},
+			],
 		});
 
-		// const bookCategory = tbl_buku.findOne
-		res.status(200).json(dataPeminjam);
+		const jumlahHalaman = Math.ceil(jumlahBaris / limitPage);
+		const hasil = await tbl_peminjaman.findAll({
+			where: {
+				anggota_id: req.userId,
+				isPinjam: isPinjam,
+			},
+			required: true,
+			include: [
+				{
+					model: tbl_buku,
+					attributes: ['judul_buku'],
+					where: {
+						judul_buku: {
+							[Op.like]: '%' + searchQuery + '%',
+						},
+					},
+					include: [
+						{
+							model: tbl_kategori,
+							as: 'Kategori_id',
+							attributes: ['kategori_nama'],
+							where: {
+								kategori_nama: {
+									[Op.like]: '%' + kategori + '%',
+								},
+							},
+						},
+						{
+							model: tbl_rak,
+							as: 'Rak_id',
+							attributes: ['lokasi_rak'],
+							where: {
+								lokasi_rak: { [Op.like]: '%' + rak + '%' },
+							},
+						},
+					],
+				},
+			],
+			offset: offset,
+			limit: limitPage,
+			order: [['isPinjam', 'DESC']],
+		});
+		res.status(200).json({
+			hasilBuku: hasil,
+			halamanKe: pageAt,
+			jumlahBaris: jumlahBaris,
+			jumlahHalaman: jumlahHalaman,
+		});
 	} catch (error) {
 		console.log(error);
 	}
@@ -254,14 +351,103 @@ exports.pinjamBuku = async (req, res) => {
 
 // List pengembalian buku
 exports.listBukuKembali = async (req, res) => {
+	const pageAt = parseInt(req.query.page) || 0;
+	const limitPage = parseInt(req.query.limit) || 10;
+	const searchQuery = req.query.search_query || '';
+	const kategori = req.query.kategori || '';
+	const rak = req.query.rak || '';
+	const isKembali = stringToBoolean(req.query.isKembali) || '';
+	const offset = limitPage * pageAt;
+
 	try {
-		const dataPengembali = await tbl_pengembalian.findAll({
+		const jumlahBaris = await tbl_pengembalian.count({
 			where: {
 				anggota_id: req.userId,
+				isKembali: isKembali,
 			},
-			include: [{ model: tbl_buku, attributes: ['judul_buku'], include: [{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] }] }],
+			required: true,
+			include: [
+				{
+					model: tbl_buku,
+					attributes: ['judul_buku'],
+					where: {
+						judul_buku: {
+							[Op.like]: '%' + searchQuery + '%',
+						},
+					},
+					include: [
+						{
+							model: tbl_kategori,
+							as: 'Kategori_id',
+							attributes: ['kategori_nama'],
+							where: {
+								kategori_nama: {
+									[Op.like]: '%' + kategori + '%',
+								},
+							},
+						},
+						{
+							model: tbl_rak,
+							as: 'Rak_id',
+							attributes: ['lokasi_rak'],
+							where: {
+								lokasi_rak: { [Op.like]: '%' + rak + '%' },
+							},
+						},
+					],
+				},
+			],
 		});
-		res.status(200).json(dataPengembali);
+
+		const jumlahHalaman = Math.ceil(jumlahBaris / limitPage);
+		const hasil = await tbl_pengembalian.findAll({
+			where: {
+				anggota_id: req.userId,
+				isKembali: isKembali,
+			},
+			required: true,
+			include: [
+				{
+					model: tbl_buku,
+					attributes: ['judul_buku'],
+					where: {
+						judul_buku: {
+							[Op.like]: '%' + searchQuery + '%',
+						},
+					},
+					include: [
+						{
+							model: tbl_kategori,
+							as: 'Kategori_id',
+							attributes: ['kategori_nama'],
+							where: {
+								kategori_nama: {
+									[Op.like]: '%' + kategori + '%',
+								},
+							},
+						},
+						{
+							model: tbl_rak,
+							as: 'Rak_id',
+							attributes: ['lokasi_rak'],
+							where: {
+								lokasi_rak: { [Op.like]: '%' + rak + '%' },
+							},
+						},
+					],
+				},
+			],
+			offset: offset,
+			limit: limitPage,
+			order: [['isKembali', 'ASC']],
+		});
+
+		res.status(200).json({
+			hasilBuku: hasil,
+			halamanKe: pageAt,
+			jumlahBaris: jumlahBaris,
+			jumlahHalaman: jumlahHalaman,
+		});
 	} catch (error) {
 		console.log(error);
 	}

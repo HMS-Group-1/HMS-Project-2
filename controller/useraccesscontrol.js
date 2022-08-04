@@ -105,7 +105,6 @@ exports.getUserById = async (req, res) => {
 				id: req.userId,
 			},
 		});
-		console.log(req.userId);
 		res.status(200).json(anggota);
 	} catch (error) {
 		console.log(error);

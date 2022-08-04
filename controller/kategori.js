@@ -3,9 +3,12 @@ const tbl_kategori = models.tbl_kategori;
 
 exports.getAllKategori = async (req, res) => {
 	try {
-		const response = await tbl_kategori.findAll();
+		const response = await tbl_kategori.findAll({
+			order: [['kategori_nama', 'ASC']],
+		});
 		res.status(200).json(response);
 	} catch (err) {
+		console.log(error);
 		res.status(500).send({
 			msg: err.message,
 		});
