@@ -458,6 +458,7 @@ exports.kembalikanBuku = async (req, res) => {
 	try {
 		const peminjam = await tbl_peminjaman.findAll({
 			where: {
+				anggota_id: req.userId,
 				buku_id: req.params.id,
 				isPinjam: true,
 			},
@@ -497,6 +498,7 @@ exports.kembalikanBuku = async (req, res) => {
 			},
 			{
 				where: {
+					anggota_id: req.userId,
 					buku_id: theBook.id,
 					isKembali: false,
 				},
@@ -509,6 +511,7 @@ exports.kembalikanBuku = async (req, res) => {
 			},
 			{
 				where: {
+					anggota_id: req.userId,
 					buku_id: theBook.id,
 					isPinjam: true,
 				},
