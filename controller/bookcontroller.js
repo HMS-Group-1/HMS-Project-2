@@ -61,12 +61,12 @@ exports.getBooksPaginated = async (req, res) => {
 			[Op.or]: [
 				{
 					judul_buku: {
-						[Op.like]: '%' + searchQuery,
+						[Op.like]: '%' + searchQuery + '%',
 					},
 				},
 				{
 					deskripsi: {
-						[Op.like]: '%' + searchQuery,
+						[Op.like]: '%' + searchQuery + '%',
 					},
 				},
 			],
