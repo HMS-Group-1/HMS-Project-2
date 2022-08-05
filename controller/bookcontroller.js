@@ -71,10 +71,14 @@ exports.getBooksPaginated = async (req, res) => {
 				},
 			],
 		},
+		attributes: { exclude: 'kategori_id' },
 		offset: offset,
 		limit: limitPage,
 		order: [['createdAt', 'DESC']],
-		include: [{ model: tbl_peminjaman, attributes: ['isPinjam'], where: { anggota_id: req.userId }, order: [['createdAt', 'DESC']], limit: 1 }],
+		include: [
+			{ model: tbl_peminjaman, attributes: ['isPinjam'], where: { anggota_id: req.userId }, order: [['createdAt', 'DESC']], limit: 1 },
+			{ model: tbl_kategori, as: 'Kategori_id', attributes: ['kategori_nama'] },
+		],
 	});
 
 	res.json({
