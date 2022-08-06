@@ -152,7 +152,6 @@ exports.changePassword = async (req, res) => {
 		});
 		if (!findUser) return res.status(404).json('User tidak ada!');
 		const match = await bcrypt.compare(oldPassword, findUser.password);
-		console.log(match);
 		if (!match) return res.status(400).json('Password tidak cocok!');
 		const hashedPassword = await bcrypt.hash(newPassword, 10);
 		await tbl_anggota.update(
