@@ -19,7 +19,7 @@ exports.getUserById = async (req, res) => {
 	try {
 		const response = await tbl_anggota.findOne({
 			where: {
-				id: req.params.id,
+				id: req.userId,
 			},
 		});
 		console.log(response);
