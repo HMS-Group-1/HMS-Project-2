@@ -50,6 +50,12 @@ exports.updateUsers = async (req, res) => {
 // DELETE USERS
 exports.deleteUsers = async (req, res) => {
 	try {
+		const user = await tbl_anggota.findOne({
+			where: {
+				id: req.params.id,
+			},
+		});
+		if (!user) return res.status(404).json('No user found');
 		await tbl_anggota.destroy({
 			where: {
 				id: req.params.id,
