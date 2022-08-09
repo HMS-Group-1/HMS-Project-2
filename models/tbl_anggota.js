@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 			nama: DataTypes.STRING,
 			email: DataTypes.STRING,
 			password: DataTypes.STRING,
-			no_telp: DataTypes.INTEGER,
+			no_telp: DataTypes.BIGINT,
 			role: DataTypes.ENUM('admin', 'anggota'),
 			refresh_token: DataTypes.TEXT,
 		},

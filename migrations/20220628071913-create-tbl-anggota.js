@@ -21,7 +21,7 @@ module.exports = {
 				allowNull: false,
 			},
 			no_telp: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.BIGINT,
 				allowNull: false,
 			},
 			role: {

@@ -16,7 +16,7 @@ const anggotaGenerator = () => {
 			nama: faker.name.findName(),
 			email: faker.internet.email(),
 			password: passwordGenerator('a'.repeat(4)),
-			no_telp: faker.phone.number('#########'),
+			no_telp: faker.phone.number('08##########'),
 			role: faker.helpers.arrayElement(['admin', 'anggota']),
 			createdAt: new Date(),
 			updatedAt: new Date(),
