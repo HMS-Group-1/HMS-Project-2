@@ -23,19 +23,4 @@ exports.bookValidation = [
 	check('rak_id', 'Tidak boleh kosong').not().isEmpty(),
 ];
 
-exports.userUpdateValidationAdmin = [
-	check('nama', 'Tidak boleh kosong').not().isEmpty(),
-	check('no_telp', 'Wajib 10 angka').not().isEmpty().isLength({ min: 10, max: 10 }),
-	check('no_telp', 'Nomor wajib angka').isNumeric(),
-	check('role')
-		.not()
-		.isEmpty()
-		.custom((role) => {
-			if (role == 'admin' || 'anggota') {
-				return true;
-			} else {
-				return false;
-			}
-		})
-		.withMessage('Hanya boleh admin atau anggota'),
-];
+exports.userUpdateValidationAdmin = [check('nama', 'Tidak boleh kosong').not().isEmpty(), check('no_telp', 'Wajib 10 angka').not().isEmpty().isLength({ min: 10, max: 10 }), check('no_telp', 'Nomor wajib angka').isNumeric()];
