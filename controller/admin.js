@@ -22,12 +22,25 @@ exports.getUserById = async (req, res) => {
 				id: req.userId,
 			},
 		});
-		console.log(response);
 		res.json(response);
 	} catch (error) {
 		console.log(error);
 	}
 };
+
+exports.getUserByIdEdit = async(req,res)=> {
+	try {
+		const response = await tbl_anggota.findOne({
+			where: {
+				id: req.params.id
+			}
+		})
+		if(!response) return res.status(404).json('User tidak ada')
+		res.status(200).json(response)
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 // UPDATE USERS
 exports.updateUsers = async (req, res) => {
