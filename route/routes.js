@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUsers, updateUsers, deleteUsers, getUserById, listPinjamAdmin, listPengembalianAdmin, getUserByIdEdit } = require('../controller/admin');
+const { getAllUsers, updateUsers, deleteUsers, getUserById, listPinjamAdmin, listPengembalianAdmin } = require('../controller/admin');
 const { getBooks, createBooks, updateBooks, deleteBooks, getBookById, getBooksPaginated, categoryWithBooks, categoryWithBooksById, pinjamBuku, kembalikanBuku, listPinjamBuku, listBukuKembali } = require('../controller/bookcontroller');
 const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
@@ -42,7 +42,7 @@ router.get('/rak', verifyUserToken, getRaks);
 
 // router admin--user
 router.get('/admin/user', verifyUserToken, verifyAdmin, getAllUsers);
-router.get('/admin/user/:id', verifyUserToken, verifyAdmin, getUserByIdEdit);
+router.get('/admin/user/:id', verifyUserToken, verifyAdmin, getUserById);
 router.patch('/admin/updateUser/:id', verifyUserToken, verifyAdmin, userUpdateValidationAdmin, updateUsers);
 router.delete('/admin/deleteUser/:id', verifyUserToken, verifyAdmin, deleteUsers);
 
