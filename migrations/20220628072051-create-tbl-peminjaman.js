@@ -15,6 +15,7 @@ module.exports = {
 					model: 'tbl_anggota',
 					key: 'id',
 				},
+				onDelete: 'CASCADE',
 			},
 			buku_id: {
 				type: Sequelize.INTEGER,
@@ -23,6 +24,7 @@ module.exports = {
 					model: 'tbl_bukus',
 					key: 'id',
 				},
+				onDelete: 'CASCADE',
 			},
 			isPinjam: {
 				type: Sequelize.BOOLEAN,
