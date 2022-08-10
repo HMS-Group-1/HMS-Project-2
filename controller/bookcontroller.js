@@ -120,7 +120,7 @@ exports.getBookById = async (req, res) => {
 			where: {
 				id: req.params.id,
 			},
-			include: [{ model: tbl_peminjaman, attributes: ['isPinjam'], where: { anggota_id: req.userId }, order: [['createdAt', 'DESC']], limit: 1, required: true, all: true }],
+			include: [{ model: tbl_peminjaman, attributes: ['isPinjam'], where: { anggota_id: req.userId }, order: [['createdAt', 'DESC']], limit: 1, required: true }],
 		});
 		res.status(200).json(bookById);
 	} catch (error) {
