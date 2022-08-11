@@ -135,7 +135,6 @@ exports.createBooks = async (req, res) => {
 		return res.status(400).json(errors);
 	}
 	const gambar = req.files.gambar[0].data;
-	console.log(gambar);
 	const { judul_buku, kategori_id, deskripsi, stok, rak_id, tahun_terbit } = req.body;
 	try {
 		await tbl_buku.create({

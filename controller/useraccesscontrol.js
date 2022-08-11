@@ -1,7 +1,7 @@
 const models = require('../models');
 const tbl_anggota = models.tbl_anggota;
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
 // Registrasi USER
