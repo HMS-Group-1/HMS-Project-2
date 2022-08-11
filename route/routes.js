@@ -5,7 +5,7 @@ const { refreshToken } = require('../controller/getrefreshtoken');
 const { getAllKategori } = require('../controller/kategori');
 const { getRaks } = require('../controller/rak');
 const { Register, Login, Logout, updateUser, changePassword } = require('../controller/useraccesscontrol');
-const { loginValidation, registerValidation, bookValidation, userUpdateValidationAdmin } = require('../middleware/validator');
+const { loginValidation, registerValidation, userUpdateValidationAdmin, bookCreateValidation, bookUpdateValidation } = require('../middleware/validator');
 const { verifyAdmin, verifyUser } = require('../middleware/verifyuserrole');
 const { verifyUserToken } = require('../middleware/verifyusertoken');
 
@@ -49,8 +49,8 @@ router.delete('/admin/deleteUser/:id', verifyUserToken, verifyAdmin, deleteUsers
 // router admin--book
 router.get('/admin/book', verifyUserToken, verifyAdmin, getBooks);
 router.get('/admin/book/:id', verifyUserToken, verifyAdmin, getBookById);
-router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookValidation, createBooks);
-router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookValidation, updateBooks);
+router.post('/admin/createBook', verifyUserToken, verifyAdmin, bookCreateValidation, createBooks);
+router.patch('/admin/updateBook/:id', verifyUserToken, verifyAdmin, bookUpdateValidation, updateBooks);
 router.delete('/admin/deleteBook/:id', verifyUserToken, verifyAdmin, deleteBooks);
 
 // router admin--peminjaman/pengembalian book
