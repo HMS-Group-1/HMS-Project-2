@@ -19,7 +19,7 @@ module.exports = {
 		username: 'b9cef5082c7e35',
 		password: '10638988',
 		database: 'heroku_c5a85ac24f1d401',
-		host: 'u-cdbr-west-03.cleardb.net',
+		host: 'eu-cdbr-west-03.cleardb.net',
 		dialect: 'mysql',
 	},
 };
