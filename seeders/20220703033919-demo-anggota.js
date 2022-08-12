@@ -1,6 +1,6 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptJS');
 
 const randomNumbers = (max) => {
 	return Math.floor(Math.random() * max);
