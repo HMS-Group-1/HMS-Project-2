@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 exports.refreshToken = async (req, res) => {
 	try {
 		const refreshToken = req.cookies.refreshToken;
-		if (!refreshToken) return res.sendStatus(403);
+		if (!refreshToken) return res.status(403).json('Token tidak ditemukan');
 		const user = await tbl_anggota.findAll({
 			where: {
 				refresh_token: refreshToken,
