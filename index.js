@@ -12,6 +12,6 @@ app.use(fileUpload());
 app.use(cookieParser());
 app.use(router);
 
-app.listen(process.env.SERVER_PORT, () => {
+app.listen(process.env.SERVER_PORT || 3000, () => {
 	console.log('Server running');
 });
