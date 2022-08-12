@@ -5,7 +5,7 @@
 		"devStart": "nodemon index.js"
 	},
 	"devDependencies": {
-		"@faker-js/faker": "^7.3.0",
+		"@faker-js/faker": "^7.4.0",
 		"sequelize-cli": "^6.4.1"
 	},
 	"dependencies": {
