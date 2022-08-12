@@ -62,7 +62,7 @@ module.exports = {
 			bookGenerator('Kebudayaan Indonesia Dimata Orang Korea', 'Kebudayaan-Indonesia-Dimata-Orang-Korea'),
 			bookGenerator('Change Your Destiny', 'Change-your-destiny'),
 			bookGenerator('Muda Berdaya Karya Raya', 'Muda-Berdaya-Karya-Raya'),
-			bookGenerator('Lancar Berbicara: Kapan, Dimana, dan Dengan Siapa Saja', 'Lancar-Bicara'),
+			bookGenerator('Lancar Berbicara: Kapan, Dimana, dan Dengan Siapa Saja', 'Lancar-bicara'),
 			bookGenerator('Beach Money', 'Beach-Money'),
 			bookGenerator('Great Influencer', 'Great-Influencer'),
 			bookGenerator('Trik Seni Berbicara Dan Seni Mendengar Untuk Komunikasi Efektif Dan Memikat', 'Trik-Seni-Berbicara'),
