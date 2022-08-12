@@ -1,26 +1,48 @@
 'use strict';
 
-const { faker } = require('@faker-js/faker');
-
-const categoryGenerator = () => {
-	let array = [];
-	let id = 1;
-	for (let i = 0; i < 100; i++) {
-		let obj = {
-			id: id,
-			kategori_nama: faker.word.noun(5).toLowerCase(),
-			createdAt: new Date(),
-			updatedAt: new Date(),
-		};
-		id++;
-		array.push(obj);
-	}
-	return array;
+const categoryGenerator = (kategori_nama) => {
+	let obj = {
+		kategori_nama: kategori_nama,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+	};
+	return obj;
 };
 
 module.exports = {
 	async up(queryInterface, Sequelize) {
-		return queryInterface.bulkInsert('tbl_kategoris', categoryGenerator());
+		return queryInterface.bulkInsert('tbl_kategoris', [
+			categoryGenerator('finance'),
+			categoryGenerator('engineering'),
+			categoryGenerator('politics'),
+			categoryGenerator('science'),
+			categoryGenerator('physics'),
+			categoryGenerator('games'),
+			categoryGenerator('psychology'),
+			categoryGenerator('data'),
+			categoryGenerator('animals'),
+			categoryGenerator('industry'),
+			categoryGenerator('history'),
+			categoryGenerator('oceanology'),
+			categoryGenerator('geography'),
+			categoryGenerator('construction'),
+			categoryGenerator('sci-fi'),
+			categoryGenerator('cartoon'),
+			categoryGenerator('religion'),
+			categoryGenerator('movies'),
+			categoryGenerator('review'),
+			categoryGenerator('analysis'),
+			categoryGenerator('opinion'),
+			categoryGenerator('stock market'),
+			categoryGenerator('foreign exchange'),
+			categoryGenerator('culture'),
+			categoryGenerator('gadgets'),
+			categoryGenerator('peripherals'),
+			categoryGenerator('biology'),
+			categoryGenerator('chemistry'),
+			categoryGenerator('marriage'),
+			categoryGenerator('parenting'),
+		]);
 	},
 
 	async down(queryInterface, Sequelize) {
