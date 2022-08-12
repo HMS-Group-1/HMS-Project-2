@@ -35,7 +35,7 @@ const stockGenerator = () => {
 
 // perlu diubah sesuai dengan jumlah tbl_kategori
 const categoryGenerator = () => {
-	return randomNumbersMinMax(1, 31);
+	return randomNumbersMinMax(1, 30);
 };
 
 const bookGenerator = (judul_buku, path) => {
