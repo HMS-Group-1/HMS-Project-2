@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{}
 	);
-	tbl_kategori.associate = function (models) {
-		tbl_kategori.hasMany(models.tbl_buku, {
-			as: 'tbl_kategori',
-		});
-	};
+	// tbl_kategori.associate = function (models) {
+	// 	tbl_kategori.hasMany(models.tbl_buku, {
+	// 		foreignKey: 'kategori_id',
+	// 	});
+	// };
 
 	return tbl_kategori;
 };

@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{}
 	);
-	tbl_rak.associate = function (models) {
-		tbl_rak.hasMany(models.tbl_buku, {
-			foreignKey: 'rak_id',
-		});
-	};
+	// tbl_rak.associate = function (models) {
+	// 	tbl_rak.hasMany(models.tbl_buku, {
+	// 		foreignKey: 'rak_id',
+	// 	});
+	// };
 	return tbl_rak;
 };
