@@ -38,7 +38,7 @@ const anggotaGenerator = (email, password) => {
 		nama: randomNames(randomNumbersMinMax()),
 		email: email,
 		password: passwordGenerator(password),
-		no_telp: randomNumbers(1000000000),
+		no_telp: randomNumbers(10000000000),
 		role: randomRoles(),
 		createdAt: new Date(),
 		updatedAt: new Date(),
